@@ -161,6 +161,19 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 ::-webkit-scrollbar{width:0}
 
+  .mail-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+
+  background: linear-gradient(135deg, #7c3aed, #06b6d4);
+
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M2 4h20a2 2 0 012 2v12a2 2 0 01-2 2H2a2 2 0 01-2-2V6a2 2 0 012-2zm20 2l-10 7L2 6v12h20V6zm-10 5L2 6h20l-10 5z'/></svg>") no-repeat center;
+
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
   /* dynamic year */
 
 
@@ -242,15 +255,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 </a> -->
 <a href="fortfoli-santosh.netlify.app" class="cta-btn cta-li" target="_blank">
   
-  <svg width="16" height="16" viewBox="0 0 24 24">
-    <defs>
-      <linearGradient id="mailGrad123" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#7c3aed"/>
-        <stop offset="100%" stop-color="#06b6d4"/>
-      </linearGradient>
-    </defs>
-    <path fill="url(#mailGrad123)" d="M2 4h20a2 2 0 012 2v12a2 2 0 01-2 2H2a2 2 0 01-2-2V6a2 2 0 012-2zm20 2l-10 7L2 6v12h20V6zm-10 5L2 6h20l-10 5z"/>
-  </svg>
+  <span class="mail-icon"></span>
 
   Mail Me
   
