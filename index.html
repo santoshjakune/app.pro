@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<title>Santosh Jakune</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#07050f;
+  --surface:#110e1f;
+  --surface2:#1a1530;
+  --neon:#7c3aed;
+  --neon2:#a855f7;
+  --cyan:#06b6d4;
+  --pink:#ec4899;
+  --gold:#f59e0b;
+  --green:#10b981;
+  --text:#f1f0f7;
+  --muted:#6b6885;
+  --border:rgba(124,58,237,0.2);
+}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;overflow-x:hidden;min-height:100vh}
+
+/* ANIMATED BG */
+.bg-orbs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);animation:drift 8s infinite alternate ease-in-out}
+.orb1{width:300px;height:300px;background:rgba(124,58,237,0.15);top:-100px;left:-100px;animation-delay:0s}
+.orb2{width:250px;height:250px;background:rgba(6,182,212,0.1);bottom:-80px;right:-80px;animation-delay:-3s}
+.orb3{width:200px;height:200px;background:rgba(236,72,153,0.08);top:40%;left:60%;animation-delay:-5s}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(30px,20px) scale(1.1)}}
+
+/* SCREENS */
+.screen{display:none;position:relative;z-index:1;min-height:100vh;padding-bottom:85px;animation:screenIn 0.4s ease}
+.screen.active{display:block}
+@keyframes screenIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* SPLASH */
+#splash{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px}
+.splash-logo{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:0.1em;background:linear-gradient(135deg,var(--neon2),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.splash-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:0.3em;text-transform:uppercase}
+.splash-bar-wrap{width:200px;height:2px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden;margin-top:8px}
+.splash-bar{height:100%;background:linear-gradient(90deg,var(--neon),var(--cyan));width:0%;transition:width 0.3s ease;border-radius:2px}
+.splash-dots{display:flex;gap:8px;margin-top:4px}
+.splash-dot{width:6px;height:6px;border-radius:50%;background:var(--border);animation:dotPulse 1.2s infinite}
+.splash-dot:nth-child(2){animation-delay:0.2s}
+.splash-dot:nth-child(3){animation-delay:0.4s}
+@keyframes dotPulse{0%,100%{background:var(--border)}50%{background:var(--neon2)}}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:rgba(7,5,15,0.96);border-top:1px solid var(--border);display:flex;padding:0 8px;backdrop-filter:blur(24px);padding-bottom:env(safe-area-inset-bottom)}
+.nb{flex:1;padding:10px 0 12px;background:none;border:none;color:var(--muted);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:0.1em;transition:color 0.25s;position:relative}
+.nb.active{color:var(--neon2)}
+.nb.active::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:20px;height:2px;background:var(--neon2);border-radius:2px}
+.nb svg{width:22px;height:22px;transition:transform 0.2s}
+.nb.active svg{transform:scale(1.1)}
+
+/* ── HOME ── */
+.home-header{padding:52px 20px 0;position:relative}
+.greeting-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.greeting{font-size:13px;color:var(--muted);font-weight:400}
+.status-pill{display:flex;align-items:center;gap:6px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.25);border-radius:100px;padding:4px 12px}
+.status-dot2{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse2 2s infinite}
+@keyframes pulse2{0%,100%{opacity:1}50%{opacity:0.4}}
+.status-txt2{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--green);text-transform:uppercase;letter-spacing:0.1em}
+.big-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,18vw,88px);line-height:0.9;letter-spacing:0.04em;margin:8px 0 4px}
+.big-name .line1{background:linear-gradient(135deg,#fff 30%,rgba(255,255,255,0.5));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.big-name .line2{background:linear-gradient(135deg,var(--neon2),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.role-row{display:flex;align-items:center;gap:8px;margin:14px 0 20px}
+.role-badge{padding:5px 14px;border-radius:100px;font-size:12px;font-weight:600;letter-spacing:0.04em}
+.rb-ml{background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.35);color:var(--neon2)}
+.rb-fs{background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.3);color:var(--cyan)}
+.bio-text{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:24px;max-width:340px}
+.bio-text strong{color:var(--text);font-weight:600}
+
+/* CTA */
+.cta-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:32px}
+.cta-btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:14px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:0.02em;transition:transform 0.15s,opacity 0.15s}
+.cta-btn:active{transform:scale(0.97);opacity:0.85}
+.cta-gh{background:var(--surface2);border:1px solid var(--border);color:var(--text)}
+.cta-li{background:linear-gradient(135deg,var(--neon),var(--neon2));color:#fff;border:none}
+.cta-btn svg{width:16px;height:16px}
+
+/* STATS */
+.section-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.25em;padding:0 20px;margin-bottom:14px}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px;margin-bottom:32px}
+.scard{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:18px 16px;position:relative;overflow:hidden}
+.scard-glow{position:absolute;top:-20px;right:-20px;width:80px;height:80px;border-radius:50%;filter:blur(30px);opacity:0.3}
+.scard-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px}
+.scard-val{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:0.04em;line-height:1}
+.scard-sub{font-size:11px;color:var(--muted);margin-top:4px}
+.scard-bar{width:100%;height:3px;background:rgba(255,255,255,0.06);border-radius:2px;margin-top:14px;overflow:hidden}
+.scard-fill{height:100%;border-radius:2px}
+
+/* ── PROJECTS ── */
+.page-hero{padding:52px 20px 24px}
+.page-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--neon2);letter-spacing:0.3em;text-transform:uppercase;margin-bottom:8px}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:0.05em;color:var(--text)}
+.proj-cards{padding:0 20px}
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:22px;margin-bottom:16px;position:relative;overflow:hidden;transition:border-color 0.3s}
+.pcard:active{border-color:var(--neon2)}
+.pcard-bg{position:absolute;inset:0;opacity:0.04;font-size:130px;display:flex;align-items:center;justify-content:flex-end;padding-right:10px;pointer-events:none;line-height:1}
+.pcard-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.pcard-num{font-family:'Bebas Neue',sans-serif;font-size:48px;line-height:1;color:rgba(255,255,255,0.06)}
+.pcard-status{display:flex;align-items:center;gap:6px}
+.pstatus-dot{width:6px;height:6px;border-radius:50%;animation:ping 1.5s infinite}
+@keyframes ping{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.4)}}
+.pstatus-txt{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.1em}
+.pcard-title{font-size:20px;font-weight:700;margin-bottom:8px;letter-spacing:-0.01em}
+.pcard-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px}
+.ptags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.ptag{padding:4px 12px;border-radius:100px;font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:0.08em}
+.ptag-v{background:rgba(124,58,237,0.12);border:1px solid rgba(124,58,237,0.3);color:var(--neon2)}
+.ptag-c{background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.25);color:var(--cyan)}
+.ptag-p{background:rgba(236,72,153,0.1);border:1px solid rgba(236,72,153,0.25);color:var(--pink)}
+.ptag-g{background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);color:var(--green)}
+.ptag-def{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:var(--muted)}
+.pcard-link{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--neon2);text-decoration:none;padding:8px 16px;border-radius:10px;background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.25)}
+
+/* ── SKILLS ── */
+.skills-wrap{padding:0 20px}
+.skill-group{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:20px;margin-bottom:14px}
+.sg-header{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.sg-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.sg-title{font-size:15px;font-weight:700}
+.sg-sub{font-size:12px;color:var(--muted)}
+.skill-item{margin-bottom:14px}
+.skill-item:last-child{margin-bottom:0}
+.skill-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.skill-name2{font-size:13px;font-weight:500;color:var(--text)}
+.skill-pct2{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted)}
+.skill-track2{width:100%;height:4px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden}
+.skill-fill{height:100%;border-radius:3px;width:0%;transition:width 1.4s cubic-bezier(0.4,0,0.2,1)}
+
+/* ── CONTACT ── */
+.contact-wrap{padding:0 20px}
+.profile-hero{background:linear-gradient(135deg,rgba(124,58,237,0.15),rgba(6,182,212,0.08));border:1px solid var(--border);border-radius:24px;padding:28px 24px;text-align:center;margin-bottom:20px;position:relative;overflow:hidden}
+.profile-hero::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(circle,rgba(124,58,237,0.15),transparent);border-radius:50%}
+.av-ring{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--cyan));padding:3px;margin:0 auto 16px;position:relative;z-index:1}
+.av-inner{width:100%;height:100%;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--neon2);letter-spacing:0.1em}
+.ph-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.08em;margin-bottom:6px}
+.ph-role{font-size:13px;color:var(--muted);margin-bottom:12px}
+.ph-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.ph-badge{padding:4px 12px;border-radius:100px;font-size:11px;font-weight:600}
+.phb-v{background:rgba(124,58,237,0.15);border:1px solid rgba(124,58,237,0.3);color:var(--neon2)}
+.phb-c{background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.25);color:var(--cyan)}
+.contact-cards{display:flex;flex-direction:column;gap:10px}
+.ccard{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 18px;text-decoration:none;transition:border-color 0.2s}
+.ccard:active{border-color:var(--neon2)}
+.ccard-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ccard-icon svg{width:20px;height:20px}
+.ccard-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:3px}
+.ccard-val{font-size:13px;font-weight:500;color:var(--text)}
+.ccard-arr{margin-left:auto;color:var(--muted);font-size:18px}
+.footer-note{text-align:center;padding:28px 0 8px;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,0.12);letter-spacing:0.3em;text-transform:uppercase}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:0 20px 24px}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+::-webkit-scrollbar{width:0}
+</style>
+</head>
+<body>
+
+<div class="bg-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+</div>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-logo">SANTOSH JAKUNE</div>
+  <div class="splash-sub">Portfolio · 2026</div>
+  <div class="splash-bar-wrap"><div class="splash-bar" id="sbar"></div></div>
+  <div class="splash-dots">
+    <div class="splash-dot"></div>
+    <div class="splash-dot"></div>
+    <div class="splash-dot"></div>
+  </div>
+</div>
+
+<!-- ══ HOME ══ -->
+<div class="screen active" id="s-home">
+  <div class="home-header">
+    <div class="greeting-row">
+      <div class="greeting">Welcome to my portfolio</div>
+      <div class="status-pill">
+        <div class="status-dot2"></div>
+        <span class="status-txt2">Open to work</span>
+      </div>
+    </div>
+    <div class="big-name">
+      <div class="line1">SANTOSH</div>
+      <div class="line2">JAKUNE</div>
+    </div>
+    <div class="role-row">
+      <span class="role-badge rb-ml">QA Automation</span>
+      <span class="role-badge rb-fs">Full Stack Dev</span>
+    </div>
+
+    ///
+      <p class="bio-text">
+  Building high-velocity 
+  <strong>Python Full Stack Developer • QA Automation • Power BI</strong> 
+  pipelines and <strong>Develope Web Apps</strong> 
+</p>
+    ///
+    <!-- <p class="bio-text">Building high-velocity <strong>python full stack developer</strong> pipelines and <strong>Next-Gen Web Apps</strong> at GRIET. Passionate about algorithms and beautiful interfaces.</p> -->
+    <div class="cta-grid">
+      <a href="https://santoshjakune.github.io/browsine/" class="cta-btn cta-gh" target="_blank">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/santosh-jakune-41a7953b4" class="cta-btn cta-li" target="_blank">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+
+  <div class="section-label">Academic Stats</div>
+  <div class="stats-grid">
+    <div class="scard">
+      <div class="scard-glow" style="background:#f97316"></div>
+      <div class="scard-lbl">SSC</div>
+      <div class="scard-val" style="color:#f97316">70<span style="font-size:22px">%</span></div>
+      <div class="scard-sub">10th Grade</div>
+      <div class="scard-bar"><div class="scard-fill" style="width:70%;background:#f97316"></div></div>
+    </div>
+    <div class="scard">
+      <div class="scard-glow" style="background:#eab308"></div>
+      <div class="scard-lbl">HSC</div>
+      <div class="scard-val" style="color:#eab308">64<span style="font-size:22px">%</span></div>
+      <div class="scard-sub">12th Grade</div>
+      <div class="scard-bar"><div class="scard-fill" style="width:64%;background:#eab308"></div></div>
+    </div>
+    <div class="scard">
+      <div class="scard-glow" style="background:#a855f7"></div>
+      <div class="scard-lbl">CGPA</div>
+      <div class="scard-val" style="color:#a855f7">7.38</div>
+      <div class="scard-sub">B.Tech CSE · GRIET</div>
+      <div class="scard-bar"><div class="scard-fill" style="width:73.8%;background:linear-gradient(90deg,#7c3aed,#a855f7)"></div></div>
+    </div>
+    <div class="scard">
+      <div class="scard-glow" style="background:#06b6d4"></div>
+      <div class="scard-lbl">Codeforces</div>
+      <div class="scard-val" style="color:#06b6d4">1121</div>
+      <div class="scard-sub">Rating · Pupil</div>
+      <div class="scard-bar"><div class="scard-fill" style="width:56%;background:#06b6d4"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PROJECTS ══ -->
+<div class="screen" id="s-proj">
+  <div class="page-hero">
+    <div class="page-tag">// Selected Works</div>
+    <div class="page-title">My Projects</div>
+  </div>
+  <div class="proj-cards">
+
+    <div class="pcard">
+      <div class="pcard-bg">🏗</div>
+      <div class="pcard-header">
+        <div class="pcard-num">01</div>
+        <div class="pcard-status">
+          <div class="pstatus-dot" style="background:#10b981"></div>
+          <span class="pstatus-txt" style="color:#10b981">Active</span>
+        </div>
+      </div>
+      <div class="pcard-title">JCB Rental Management</div>
+      <div class="pcard-desc">A complete web platform to manage JCB machine rentals. Includes booking forms, user dashboard, machine inventory and real-time SMS notifications via Twilio.</div>
+      <div class="ptags">
+        <span class="ptag ptag-c">React</span>
+        <span class="ptag ptag-g">Node.js</span>
+        <span class="ptag ptag-def">SQL</span>
+        <span class="ptag ptag-v">Twilio</span>
+      </div>
+      <a href="https://santoshjakune.github.io/browsine/" class="pcard-link" target="_blank">View Project ↗</a>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-bg">🏠</div>
+      <div class="pcard-header">
+        <div class="pcard-num">02</div>
+        <div class="pcard-status">
+          <div class="pstatus-dot" style="background:#a855f7"></div>
+          <span class="pstatus-txt" style="color:#a855f7">ML Pipeline</span>
+        </div>
+      </div>
+      <div class="pcard-title">Home Rental Management</div>
+      <div class="pcard-desc">Machine learning powered rental system achieving 75% accuracy on customer prediction data. Smart property matching with intelligent tenant management system.</div>
+      <div class="ptags">
+        <span class="ptag ptag-v">Python</span>
+        <span class="ptag ptag-v">ML Model</span>
+        <span class="ptag ptag-c">React</span>
+        <span class="ptag ptag-def">REST API</span>
+      </div>
+      <a href="https://santoshjakune.github.io/browsine/" class="pcard-link" target="_blank">View Project ↗</a>
+    </div>
+
+    <div class="pcard">
+      <div class="pcard-bg">📊</div>
+      <div class="pcard-header">
+        <div class="pcard-num">03</div>
+        <div class="pcard-status">
+          <div class="pstatus-dot" style="background:#06b6d4"></div>
+          <span class="pstatus-txt" style="color:#06b6d4">Algorithm</span>
+        </div>
+      </div>
+      <div class="pcard-title">Graph Visualizer</div>
+      <div class="pcard-desc">Interactive React engine powered by Cytoscape.js that visualizes BFS, DFS, Dijkstra's Shortest Path in real-time. Designed to teach complex graph algorithms visually.</div>
+      <div class="ptags">
+        <span class="ptag ptag-c">React</span>
+        <span class="ptag ptag-p">Power BI</span>
+        <span class="ptag ptag-g">Algorithms</span>
+        <span class="ptag ptag-def">DSA Using Python</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SKILLS ══ -->
+<div class="screen" id="s-skills">
+  <div class="page-hero">
+    <div class="page-tag">// Tech Arsenal</div>
+    <div class="page-title">My Skills</div>
+  </div>
+  <div class="skills-wrap">
+
+    <div class="skill-group">
+      <div class="sg-header">
+        <div class="sg-icon" style="background:rgba(6,182,212,0.12)">⚛️</div>
+        <div><div class="sg-title">Frontend</div><div class="sg-sub">UI & Web Development</div></div>
+      </div>
+      <div class="skill-item"><div class="skill-meta"><span class="skill-name2">React.js</span><span class="skill-pct2">85%</span></div><div class="skill-track2"><div class="skill-fill" style="background:linear-gradient(90deg,#06b6d4,#0ea5e9)" data-w="85"></div></div></div>
+      <div class="skill-item"><div class="skill-meta"><span class="skill-name2">HTML & CSS</span><span class="skill-pct2">90%</span></div><div class="skill-track2"><div class="skill-fill" style="background:linear-gradient(90deg,#06b6d4,#0ea5e9)" data-w="90"></div></div></div>
+      <div class="skill-item"><div class="skill-meta"><span class="skill-name2">Power BI</span><span class="skill-pct2">80%</span></div><div class="skill-track2"><div class="skill-fill" style="background:linear-gradient(90deg,#06b6d4,#0ea5e9)" data-w="80"></div></div></div>
+      <div class="skill-item"><div class="skill-meta"><span class="skill-name2">JavaScript</span><span class="skill-pct2">78%</span></div><div class="skill-track2"><div class="skill-fill" style="background:linear-gradient(90deg,#06b6d4,#0ea5e9)" data-w="78"></div></div></div>
+    </div>
+
+    <div class="skill-group">
+      <div class="sg-header">
+        <div class="sg-icon" style="background:rgba(245,158,11,0.12)">⚙️</div>
+        <div><div class="sg-title">Backend</div><div class="sg-sub">Server & Database</div></div>
+      </div>
+      <div class="skill-item"><div class="skill-meta"><span class="skill-name2">Python</span><span class="skill-pct2">75%</span></div><div class="skill-track2"><div class="skill-fill" style="background:linear-gradient(90deg,#f59e0b,#fbbf24)" data-w="75"></div></div></div>
+      <div class="skill-item"><div class="skill-meta"><span class="skill-name2">SQL</span><span class="skill-pct2">78%</span></div><div class="skill-track2"><div class="skill-fill" style="background:linear-gradient(90deg,#f59e0b,#fbbf24)" data-w="78"></div></div></div>
+      <div class="skill-item"><div class="skill-meta"><span class="skill-name2">REST API</span><span class="skill-pct2">72%</span></div><div class="skill-track2"><div class="skill-fill" style="background:linear-gradient(90deg,#f59e0b,#fbbf24)" data-w="72"></div></div></div>
+    </div>
+
+    <div class="skill-group">
+      <div class="sg-header">
+        <div class="sg-icon" style="background:rgba(168,85,247,0.12)">🤖</div>
+        <div><div class="sg-title">ML & Data</div><div class="sg-sub">Machine Learning</div></div>
+      </div>
+      <div class="skill-item"><div class="skill-meta"><span class="skill-name2">Python</span><span class="skill-pct2">82%</span></div><div class="skill-track2"><div class="skill-fill" style="background:linear-gradient(90deg,#7c3aed,#a855f7)" data-w="82"></div></div></div>
+      <div class="skill-item"><div class="skill-meta"><span class="skill-name2">D-jango Framwork</span><span class="skill-pct2">70%</span></div><div class="skill-track2"><div class="skill-fill" style="background:linear-gradient(90deg,#7c3aed,#a855f7)" data-w="70"></div></div></div>
+      <div class="skill-item"><div class="skill-meta"><span class="skill-name2"> Qa Automation</span><span class="skill-pct2">97%</span></div><div class="skill-track2"><div class="skill-fill" style="background:linear-gradient(90deg,#7c3aed,#a855f7)" data-w="68"></div></div></div>
+    </div>
+
+    <div class="skill-group">
+      <div class="sg-header">
+        <div class="sg-icon" style="background:rgba(16,185,129,0.12)">🏆</div>
+        <div><div class="sg-title">Competitive</div><div class="sg-sub">Problem Solving</div></div>
+      </div>
+      <div class="skill-item"><div class="skill-meta"><span class="skill-name2">C</span><span class="skill-pct2">76%</span></div><div class="skill-track2"><div class="skill-fill" style="background:linear-gradient(90deg,#10b981,#34d399)" data-w="76"></div></div></div>
+      <div class="skill-item"><div class="skill-meta"><span class="skill-name2">DSA</span><span class="skill-pct2">72%</span></div><div class="skill-track2"><div class="skill-fill" style="background:linear-gradient(90deg,#10b981,#34d399)" data-w="72"></div></div></div>
+      <div class="skill-item"><div class="skill-meta"><span class="skill-name2">Codeforces</span><span class="skill-pct2">1121</span></div><div class="skill-track2"><div class="skill-fill" style="background:linear-gradient(90deg,#10b981,#34d399)" data-w="56"></div></div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div class="screen" id="s-contact">
+  <div class="page-hero">
+    <div class="page-tag">// Let's Connect</div>
+    <div class="page-title">Contact Me</div>
+  </div>
+  <div class="contact-wrap">
+    <div class="profile-hero">
+      <div class="av-ring">
+        <div class="av-inner">SJ</div>
+      </div>
+      <div class="ph-name">SANTOSH JAKUNE</div>
+      <div class="ph-role">BCA in ·Computer Science · CGPA 7.38</div>
+      <div class="ph-badges">
+        <span class="ph-badge phb-v">ML Engineer</span>
+        <span class="ph-badge phb-c">Full Stack</span>
+        <span class="ph-badge phb-v">Codeforces 1121</span>
+      </div>
+    </div>
+
+    <div class="contact-cards">
+      <a href="mailto:santoshjakune3740@gmail.com" class="ccard">
+        <div class="ccard-icon" style="background:rgba(124,58,237,0.15)">
+          <svg fill="none" viewBox="0 0 24 24" stroke="#a855f7" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+        </div>
+        <div>
+          <div class="ccard-lbl">Email</div>
+          <div class="ccard-val">santoshjakune3740@gmail.com</div>
+        </div>
+        <div class="ccard-arr">›</div>
+      </a>
+
+      <a href="https://www.linkedin.com/in/santosh-jakune-41a7953b4" class="ccard" target="_blank">
+        <div class="ccard-icon" style="background:rgba(0,119,181,0.15)">
+          <svg fill="#0077b5" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </div>
+        <div>
+          <div class="ccard-lbl">LinkedIn</div>
+          <div class="ccard-val">santosh-jakune-41a7953b4</div>
+        </div>
+        <div class="ccard-arr">›</div>
+      </a>
+
+      <a href="https://santoshjakune.github.io/browsine/" class="ccard" target="_blank">
+        <div class="ccard-icon" style="background:rgba(255,255,255,0.07)">
+          <svg fill="rgba(255,255,255,0.7)" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        </div>
+        <div>
+          <div class="ccard-lbl">GitHub</div>
+          <div class="ccard-val">santoshjakune.github.io</div>
+        </div>
+        <div class="ccard-arr">›</div>
+      </a>
+    </div>
+
+    <div class="footer-note">Thank you for visiting 🤝</div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bnav">
+  <button class="nb active" data-s="s-home">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
+    Home
+  </button>
+  <button class="nb" data-s="s-proj">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z"/></svg>
+    Projects
+  </button>
+  <button class="nb" data-s="s-skills">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+    Skills
+  </button>
+  <button class="nb" data-s="s-contact">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+    Contact
+  </button>
+</nav>
+
+<script>
+// SPLASH
+let p=0;const bar=document.getElementById('sbar');
+const si=setInterval(()=>{p+=Math.random()*25;if(p>=100){p=100;clearInterval(si);setTimeout(()=>{const sp=document.getElementById('splash');sp.style.transition='opacity 0.6s ease';sp.style.opacity='0';setTimeout(()=>sp.remove(),600);},300);}bar.style.width=p+'%';},200);
+
+// NAV
+document.querySelectorAll('.nb').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.s).classList.add('active');
+    window.scrollTo(0,0);
+    if(btn.dataset.s==='s-skills') setTimeout(animSkills,150);
+  });
+});
+
+// SKILLS ANIMATION
+function animSkills(){
+  document.querySelectorAll('.skill-fill').forEach(el=>{el.style.width=el.dataset.w+'%';});
+}
+</script>
+</body>
+</html>
