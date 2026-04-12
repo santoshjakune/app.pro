@@ -207,7 +207,9 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 </div>
 
   <!-- dynamic year -->
-
+<div class="splash-sub">
+  Portfolio · <span id="year"></span> · <span id="time"></span>
+</div>
 
 <!-- ══ HOME ══ -->
 <div class="screen active" id="s-home">
@@ -246,7 +248,7 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
         LinkedIn
       </a>
       </a>
-      <a href="fortfoli-santosh.netlify.app" class="cta-btn cta-li" target="_blank">
+      <a href="https://santoshjakune.github.io/ML/" class="cta-btn cta-li" target="_blank">
         <svg fill="currentColor" viewBox="0 0 24 24" width="16" height="16">
     <path d="M6 2h9l5 5v15a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2zm8 1.5V8h4.5L14 3.5zM8 12h8v2H8v-2zm0 4h8v2H8v-2zm0-8h4v2H8V8z"/>
   </svg>
@@ -548,6 +550,31 @@ document.querySelectorAll('.nb').forEach(btn=>{
 function animSkills(){
   document.querySelectorAll('.skill-fill').forEach(el=>{el.style.width=el.dataset.w+'%';});
 }
+  // YEAR
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // TIME
+  function updateTime() {
+    const now = new Date();
+
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+
+    let ampm = hours >= 12 ? "PM" : "AM";
+
+    hours = hours % 12;
+    hours = hours ? hours : 12; // 0 = 12
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    document.getElementById("time").textContent =
+      hours + ":" + minutes + ":" + seconds + " " + ampm;
+  }
+
+  updateTime();
+  setInterval(updateTime, 1000);
 </script>
 </body>
 </html>
