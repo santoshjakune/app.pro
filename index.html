@@ -161,15 +161,24 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 ::-webkit-scrollbar{width:0}
 
-  /* .cta-li {
+  .cta-li {
   background: linear-gradient(135deg, #7c3aed, #06b6d4);
   color: white;
   border: none;
   box-shadow: 0 0 15px rgba(124,58,237,0.5);
-} */
+}
 
 
   /* dynamic year */
+
+  #year {
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
 
 
 </style>
@@ -185,7 +194,10 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 <!-- SPLASH -->
 <div id="splash">
   <div class="splash-logo">SANTOSH JAKUNE</div>
-  <div class="splash-sub">Portfolio · 2026</div>
+  <!-- <div class="splash-sub">Portfolio · 2026</div> -->
+  <div class="splash-sub">
+  Portfolio · <span id="year"></span>
+</div>
   <div class="splash-bar-wrap"><div class="splash-bar" id="sbar"></div></div>
   <div class="splash-dots">
     <div class="splash-dot"></div>
@@ -498,7 +510,9 @@ body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;over
 <script>
 
   // dynamic year
-
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
   
 // SPLASH
 let p=0;const bar=document.getElementById('sbar');
